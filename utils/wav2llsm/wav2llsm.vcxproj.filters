@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <ItemGroup>
+    <ClCompile Include="wav2llsm.cpp" />
+    <ClCompile Include="..\..\lib\ciglet\external\wavfile.c" />
+    <ClCompile Include="..\..\lib\libllsm2\layer1.c" />
+    <ClCompile Include="..\..\lib\libllsm2\coder.c" />
+    <ClCompile Include="..\..\lib\libllsm2\layer0.c" />
+    <ClCompile Include="..\..\lib\libllsm2\container.c" />
+    <ClCompile Include="..\..\lib\libllsm2\frame.c" />
+    <ClCompile Include="..\..\lib\libllsm2\llsmutils.c" />
+    <ClCompile Include="..\..\lib\libllsm2\llsmrt.c" />
+    <ClCompile Include="..\..\lib\libllsm2\dsputils.c" />
+    <ClCompile Include="..\..\lib\ciglet\ciglet.c" />
+    <ClCompile Include="..\..\lib\ciglet\external\fast_median.c" />
+    <ClCompile Include="..\..\lib\ciglet\external\fftsg_h.c" />
+    <ClCompile Include="..\..\lib\llsm_file_utils\llsm_file_utils.c" />
+    <ClCompile Include="..\..\lib\libpyin\yin.c" />
+    <ClCompile Include="..\..\lib\libpyin\math-funcs.c" />
+    <ClCompile Include="..\..\lib\libpyin\pyin.c" />
+    <ClCompile Include="..\..\lib\libgvps\gvps_sampled.c" />
+    <ClCompile Include="..\..\lib\libgvps\gvps_variable.c" />
+    <ClCompile Include="..\..\lib\libgvps\gvps_full.c" />
+    <ClCompile Include="..\..\lib\libgvps\gvps_obsrv.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\adsr.h" />
+    <ClInclude Include="..\..\include\llsm_database.h" />
+    <ClInclude Include="..\..\include\llsm_errors.h" />
+    <ClInclude Include="..\..\include\note_tracker.h" />
+    <ClInclude Include="..\..\include\optparse.h" />
+    <ClInclude Include="..\..\include\optparse_tchar_wrapper.h" />
+    <ClInclude Include="..\..\include\sine_lfo.h" />
+    <ClInclude Include="..\..\include\synth_common.h" />
+    <ClInclude Include="..\..\include\synth_ctrl.h" />
+    <ClInclude Include="..\..\include\utau_pocket.h" />
+    <ClInclude Include="..\..\include\utau_pocket_config.h" />
+    <ClInclude Include="..\..\include\utau_pocket_tchar.h" />
+    <ClInclude Include="..\..\include\vocal_state_machine.h" />
+  </ItemGroup>
+</Project>

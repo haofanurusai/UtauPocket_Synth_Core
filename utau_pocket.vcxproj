@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugStatic|Win32">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|x64">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseStatic|Win32">
+      <Configuration>ReleaseStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseStatic|x64">
+      <Configuration>ReleaseStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDLL|Win32">
+      <Configuration>DebugDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugDLL|x64">
+      <Configuration>DebugDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseDLL|Win32">
+      <Configuration>ReleaseDLL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseDLL|x64">
+      <Configuration>ReleaseDLL</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8C825590-7F1F-4B74-88A9-98007C27D566}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)'=='DebugStatic'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='ReleaseStatic'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='DebugDLL'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='ReleaseDLL'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <UtauRoot>$(ProjectDir)</UtauRoot>
+    <UtauPrecision Condition="'$(UtauPrecision)'==''">float</UtauPrecision>
+    <OutDir>$(UtauRoot)build\msvc\$(Platform)\$(Configuration)\$(UtauPrecision)\</OutDir>
+    <IntDir>$(OutDir)obj\core\</IntDir>
+    <TargetName>utau_pocket</TargetName>
+    <TargetName Condition="'$(Configuration)'=='DebugStatic' Or '$(Configuration)'=='ReleaseStatic'">utau_pocket_static</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <LanguageStandard_C>stdc11</LanguageStandard_C>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <ForcedIncludeFiles>$(UtauRoot)include\utau_pocket_config.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ObjectFileName>$(IntDir)%(Filename).obj</ObjectFileName>
+      <AdditionalIncludeDirectories>$(UtauRoot)include;$(UtauRoot)src;$(UtauRoot)lib;$(UtauRoot)lib\llsm_file_utils;$(UtauRoot)lib\libllsm2;$(UtauRoot)lib\libpyin;$(UtauRoot)lib\ciglet;$(UtauRoot)lib\ciglet\external;$(UtauRoot)lib\arduino_midi_library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>FP_TYPE=$(UtauPrecision);UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary Condition="'$(Configuration)'=='DebugStatic' Or '$(Configuration)'=='DebugDLL'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <Optimization Condition="'$(Configuration)'=='DebugStatic' Or '$(Configuration)'=='DebugDLL'">Disabled</Optimization>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='DebugDLL' Or '$(Configuration)'=='ReleaseDLL'">
+    <ClCompile>
+      <PreprocessorDefinitions>UTAU_POCKET_BUILD;UTAU_POCKET_SHARED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <ModuleDefinitionFile>$(UtauRoot)utau_pocket.def</ModuleDefinitionFile>
+      <ImportLibrary>$(OutDir)utau_pocket_import.lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\note_tracker.cpp" />
+    <ClCompile Include="src\utau_pocket.cpp" />
+    <ClCompile Include="src\sine_lfo.cpp" />
+    <ClCompile Include="src\synth_ctrl.cpp" />
+    <ClCompile Include="src\lookup_tables.cpp" />
+    <ClCompile Include="src\adsr.cpp" />
+    <ClCompile Include="src\llsm_database.cpp" />
+    <ClCompile Include="src\vocal_state_machine.cpp" />
+    <ClCompile Include="lib\libllsm2\layer1.c" />
+    <ClCompile Include="lib\libllsm2\coder.c" />
+    <ClCompile Include="lib\libllsm2\layer0.c" />
+    <ClCompile Include="lib\libllsm2\container.c" />
+    <ClCompile Include="lib\libllsm2\frame.c" />
+    <ClCompile Include="lib\libllsm2\llsmutils.c" />
+    <ClCompile Include="lib\libllsm2\llsmrt.c" />
+    <ClCompile Include="lib\libllsm2\dsputils.c" />
+    <ClCompile Include="lib\ciglet\ciglet.c" />
+    <ClCompile Include="lib\ciglet\external\fast_median.c" />
+    <ClCompile Include="lib\ciglet\external\fftsg_h.c" />
+    <ClCompile Include="lib\llsm_file_utils\llsm_file_utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\adsr.h" />
+    <ClInclude Include="include\llsm_database.h" />
+    <ClInclude Include="include\llsm_errors.h" />
+    <ClInclude Include="include\note_tracker.h" />
+    <ClInclude Include="include\sine_lfo.h" />
+    <ClInclude Include="include\synth_common.h" />
+    <ClInclude Include="include\synth_ctrl.h" />
+    <ClInclude Include="include\lookup_tables.h" />
+    <ClInclude Include="include\utau_pocket.h" />
+    <ClInclude Include="include\utau_pocket_config.h" />
+    <ClInclude Include="include\utau_pocket_tchar.h" />
+    <ClInclude Include="include\vocal_state_machine.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

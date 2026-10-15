@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugStatic|Win32">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|x64">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseStatic|Win32">
+      <Configuration>ReleaseStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseStatic|x64">
+      <Configuration>ReleaseStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1A80D8B0-85AB-45AF-99D2-605570A0B601}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)'=='DebugStatic'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='ReleaseStatic'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <UtauRoot>$(ProjectDir)..\..\</UtauRoot>
+    <UtauPrecision Condition="'$(UtauPrecision)'==''">float</UtauPrecision>
+    <OutDir>$(UtauRoot)build\msvc\$(Platform)\$(Configuration)\$(UtauPrecision)\</OutDir>
+    <IntDir>$(OutDir)obj\utau_pocket\</IntDir>
+    <TargetName>utau_pocket</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <Optimization>MaxSpeed</Optimization>
+      <ObjectFileName>$(IntDir)%(Filename).obj</ObjectFileName>
+      <RuntimeLibrary Condition="'$(Configuration)'=='DebugStatic'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <Optimization Condition="'$(Configuration)'=='DebugStatic'">Disabled</Optimization>
+      <PreprocessorDefinitions>FP_TYPE=$(UtauPrecision);UNICODE;_UNICODE;NOMINMAX;__WINDOWS_MM__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(UtauRoot)include;$(ProjectDir);$(ProjectDir)vendor\rtmidi;$(ProjectDir)vendor\portaudio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalDependencies>winmm.lib;ole32.lib;uuid.lib;setupapi.lib;advapi32.lib;avrt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="cmd_parser.cpp" />
+    <ClCompile Include="midi_rtmidi.cpp" />
+    <ClCompile Include="audio_portaudio.cpp" />
+    <ClCompile Include="vendor\rtmidi\RtMidi.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cmd_parser.h" />
+    <ClInclude Include="platform.h" />
+    <ClInclude Include="sample_conversion.h" />
+    <ClInclude Include="vendor\rtmidi\RtMidi.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\utau_pocket.vcxproj">
+      <Project>{8C825590-7F1F-4B74-88A9-98007C27D566}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <ProjectReference Include="portaudio.vcxproj">
+      <Project>{1A80D8B0-85AB-45AF-99D2-605570A0B602}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

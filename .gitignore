@@ -1,0 +1,18 @@
+# 构建产物
+build/
+
+# Make utils 拷贝的工具二进制
+utils/utau2llsm/wav2llsm
+utils/utau2llsm/*.exe
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+utils/utau2llsm/config.json
+
+# 编辑器/OS
+*.swp
+*~
+.DS_Store
+Thumbs.db

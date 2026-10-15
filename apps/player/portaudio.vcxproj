@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" ToolsVersion="Current">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugStatic|Win32">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugStatic|x64">
+      <Configuration>DebugStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseStatic|Win32">
+      <Configuration>ReleaseStatic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseStatic|x64">
+      <Configuration>ReleaseStatic</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1A80D8B0-85AB-45AF-99D2-605570A0B602}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)'=='DebugStatic'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='ReleaseStatic'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <UtauRoot>$(ProjectDir)..\..\</UtauRoot>
+    <UtauPrecision Condition="'$(UtauPrecision)'==''">float</UtauPrecision>
+    <OutDir>$(UtauRoot)build\msvc\$(Platform)\$(Configuration)\$(UtauPrecision)\</OutDir>
+    <IntDir>$(OutDir)obj\portaudio_static\</IntDir>
+    <TargetName>portaudio_static</TargetName>
+    <AsioSdkDir Condition="'$(AsioSdkDir)'=='' And Exists('$(ProjectDir)vendor\asiosdk\common\asio.cpp') And Exists('$(ProjectDir)vendor\asiosdk\host\asiodrivers.cpp') And Exists('$(ProjectDir)vendor\asiosdk\host\pc\asiolist.cpp')">$(ProjectDir)vendor\asiosdk</AsioSdkDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <Optimization>MaxSpeed</Optimization>
+      <ObjectFileName>$(IntDir)%(Filename).obj</ObjectFileName>
+      <RuntimeLibrary Condition="'$(Configuration)'=='DebugStatic'">MultiThreadedDebugDLL</RuntimeLibrary>
+      <Optimization Condition="'$(Configuration)'=='DebugStatic'">Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;UNICODE;_UNICODE;_CRT_SECURE_NO_WARNINGS;_WIN32_WINNT=0x0601;WINVER=0x0601;PA_USE_WMME=1;PA_USE_WASAPI=1;PA_USE_DS=0;PA_USE_WDMKS=0;PA_USE_ASIO=$(PortAudioAsio);PA_USE_SKELETON=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)vendor\portaudio\include;$(ProjectDir)vendor\portaudio\src\common;$(ProjectDir)vendor\portaudio\src\os\win;$(AsioSdkDir)\common;$(AsioSdkDir)\host;$(AsioSdkDir)\host\pc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <PortAudioAsio>0</PortAudioAsio>
+    <PortAudioAsio Condition="'$(AsioSdkDir)'!=''">1</PortAudioAsio>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="vendor\portaudio\src\common\pa_allocation.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_converters.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_cpuload.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_debugprint.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_dither.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_front.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_process.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_ringbuffer.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_stream.c" />
+    <ClCompile Include="vendor\portaudio\src\common\pa_trace.c" />
+    <ClCompile Include="vendor\portaudio\src\hostapi\wasapi\pa_win_wasapi.c" />
+    <ClCompile Include="vendor\portaudio\src\hostapi\wmme\pa_win_wmme.c" />
+    <ClCompile Include="vendor\portaudio\src\os\win\pa_win_coinitialize.c" />
+    <ClCompile Include="vendor\portaudio\src\os\win\pa_win_hostapis.c" />
+    <ClCompile Include="vendor\portaudio\src\os\win\pa_win_util.c" />
+    <ClCompile Include="vendor\portaudio\src\os\win\pa_win_waveformat.c" />
+    <ClCompile Include="vendor\portaudio\src\os\win\pa_win_wdmks_utils.c" />
+    <ClCompile Include="vendor\portaudio\src\os\win\pa_x86_plain_converters.c" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(AsioSdkDir)'!=''">
+    <ClCompile Include="vendor\portaudio\src\hostapi\asio\pa_asio.cpp" />
+    <ClCompile Include="vendor\portaudio\src\hostapi\asio\iasiothiscallresolver.cpp" />
+    <ClCompile Include="$(AsioSdkDir)\common\asio.cpp">
+      <UndefinePreprocessorDefinitions>UNICODE;_UNICODE;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="$(AsioSdkDir)\host\asiodrivers.cpp">
+      <UndefinePreprocessorDefinitions>UNICODE;_UNICODE;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+    </ClCompile>
+    <ClCompile Include="$(AsioSdkDir)\host\pc\asiolist.cpp">
+      <UndefinePreprocessorDefinitions>UNICODE;_UNICODE;%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
+    </ClCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

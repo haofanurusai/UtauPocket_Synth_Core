@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <ItemGroup>
+    <ClCompile Include="src\note_tracker.cpp" />
+    <ClCompile Include="src\utau_pocket.cpp" />
+    <ClCompile Include="src\sine_lfo.cpp" />
+    <ClCompile Include="src\synth_ctrl.cpp" />
+    <ClCompile Include="src\lookup_tables.cpp" />
+    <ClCompile Include="src\adsr.cpp" />
+    <ClCompile Include="src\llsm_database.cpp" />
+    <ClCompile Include="src\vocal_state_machine.cpp" />
+    <ClCompile Include="lib\libllsm2\layer1.c" />
+    <ClCompile Include="lib\libllsm2\coder.c" />
+    <ClCompile Include="lib\libllsm2\layer0.c" />
+    <ClCompile Include="lib\libllsm2\container.c" />
+    <ClCompile Include="lib\libllsm2\frame.c" />
+    <ClCompile Include="lib\libllsm2\llsmutils.c" />
+    <ClCompile Include="lib\libllsm2\llsmrt.c" />
+    <ClCompile Include="lib\libllsm2\dsputils.c" />
+    <ClCompile Include="lib\ciglet\ciglet.c" />
+    <ClCompile Include="lib\ciglet\external\fast_median.c" />
+    <ClCompile Include="lib\ciglet\external\fftsg_h.c" />
+    <ClCompile Include="lib\llsm_file_utils\llsm_file_utils.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\adsr.h" />
+    <ClInclude Include="include\llsm_database.h" />
+    <ClInclude Include="include\llsm_errors.h" />
+    <ClInclude Include="include\note_tracker.h" />
+    <ClInclude Include="include\sine_lfo.h" />
+    <ClInclude Include="include\synth_common.h" />
+    <ClInclude Include="include\synth_ctrl.h" />
+    <ClInclude Include="include\lookup_tables.h" />
+    <ClInclude Include="include\utau_pocket.h" />
+    <ClInclude Include="include\utau_pocket_config.h" />
+    <ClInclude Include="include\utau_pocket_tchar.h" />
+    <ClInclude Include="include\vocal_state_machine.h" />
+  </ItemGroup>
+</Project>

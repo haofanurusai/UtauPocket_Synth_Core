@@ -1,0 +1,13 @@
+#ifndef LLSM_ERRORS_H
+#define LLSM_ERRORS_H
+#define LLSM_ERR_OK 0
+#define LLSM_ERR_FILE_OPEN (-1)
+#define LLSM_ERR_FILE_READ (-2)
+#define LLSM_ERR_FILE_WRITE (-3)
+#define LLSM_ERR_INVALID_DATA (-4)
+#define LLSM_ERR_MEM_ALLOC (-5)
+#define LLSM_ERR_NULL_PTR (-6)
+#define LLSM_ERR_UNSUPPORTED (-7)
+#define LLSM_ERR_INVALID_ARGUMENT (-8)
+#define LLSM_ERR_INVALID_STATE (-9)
+#endif

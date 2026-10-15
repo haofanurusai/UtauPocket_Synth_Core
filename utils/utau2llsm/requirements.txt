@@ -1,0 +1,5 @@
+# Converter + editor. Tkinter must be supplied by the Python installation.
+numpy>=1.23
+Pillow>=9
+# Live audio is optional; conversion, editing and WAV export work without it.
+sounddevice>=0.4

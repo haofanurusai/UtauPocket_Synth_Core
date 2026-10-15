@@ -1,0 +1,7 @@
+LIBRARY utau_pocket
+EXPORTS
+    utau_pocket_init
+    utau_pocket_close
+    utau_pocket_synth
+    utau_pocket_push_midi_evt
+    utau_pocket_set_tune_request_callback
