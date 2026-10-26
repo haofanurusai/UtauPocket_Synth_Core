@@ -1,5 +1,7 @@
 # UtauPocket Synth Core
 
+English ｜ [简体中文](README_zh.md)
+
 TBC
 
 ## Third-party components and licensing inventory
